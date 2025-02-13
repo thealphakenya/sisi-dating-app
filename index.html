@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sisi Dating App</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <script type="module" src="firebase/firebase-auth.js"></script>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <h1>Sisi Dating App</h1>
+        <ul>
+            <li><a href="authentication.html">Login/Register</a></li>
+            <li><a href="matches.html">My Matches</a></li>
+            <li><a href="messages.html">Messages</a></li>
+            <li><a href="subscriptions.html">Subscriptions</a></li>
+            <li><a href="live.html">Live Streams</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <h2>Find Your Perfect Match</h2>
+        <p>Connect with people who share your interests.</p>
+        <button onclick="checkUser()">Get Started</button>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature">
+            <h3>Smart Matchmaking</h3>
+            <p>We suggest the best matches based on your preferences.</p>
+        </div>
+        <div class="feature">
+            <h3>Secure Messaging</h3>
+            <p>Chat, audio call, and video call with verified users.</p>
+        </div>
+        <div class="feature">
+            <h3>Live Streaming</h3>
+            <p>Join live streams, interact, and build connections.</p>
+        </div>
+    </section>
+
+    <!-- Subscription Section -->
+    <section class="subscriptions">
+        <h2>Choose Your Plan</h2>
+        <button onclick="window.location.href='subscriptions.html'">View Plans</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Sisi Dating App. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        async function checkUser() {
+            import('./firebase/firebase-auth.js').then(({ auth }) => {
+                if (auth.currentUser) {
+                    window.location.href = "matches.html";
+                } else {
+                    window.location.href = "authentication.html";
+                }
+            }).catch(err => console.error("Error checking user:", err));
+        }
+    </script>
+
+</body>
+</html>

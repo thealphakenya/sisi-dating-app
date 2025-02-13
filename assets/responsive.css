@@ -1,0 +1,21 @@
+/* Responsive for Mobile */
+@media (max-width: 600px) {
+    body {
+        text-align: left;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+/* Responsive for Tablets */
+@media (max-width: 900px) {
+    .hero {
+        height: 200px;
+    }
+}

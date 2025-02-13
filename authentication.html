@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <script type="module" src="firebase/firebase-auth.js"></script>
+</head>
+<body>
+    <h1>Login or Register</h1>
+    
+    <form id="login-form">
+        <input type="email" id="email" placeholder="Enter Email">
+        <input type="password" id="password" placeholder="Enter Password">
+        <button type="submit">Login</button>
+    </form>
+
+    <p>Don't have an account? <a href="register.html">Register</a></p>
+
+    <script>
+        import { auth, signInWithEmailAndPassword } from './firebase/firebase-auth.js';
+
+        document.getElementById('login-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                window.location.href = "matches.html";
+            } catch (error) {
+                alert("Error logging in: " + error.message);
+            }
+        });
+    </script>
+</body>
+</html>

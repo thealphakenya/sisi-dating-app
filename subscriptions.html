@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriptions</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <script type="module" src="firebase/firebase-auth.js"></script>
+    <script type="module" src="firebase/firebase-database.js"></script>
+    <script type="module" src="mpesa-payment.js"></script>
+</head>
+<body>
+    <h1>Choose a Subscription</h1>
+
+    <button class="pay-btn" data-amount="100">Ksh 100 - 1 Week</button>
+    <button class="pay-btn" data-amount="3000">Ksh 3000 - 1 Month</button>
+    <button class="pay-btn" data-amount="20">Ksh 20 - One-Time Chat</button>
+
+    <script>
+        const paymentButtons = document.querySelectorAll('.pay-btn');
+        paymentButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const amount = button.getAttribute('data-amount');
+                processPayment(amount);
+            });
+        });
+
+        function processPayment(amount) {
+            // Assuming mpesa-payment.js has a function to process the payment
+            startMpesaPayment(amount).then(response => {
+                console.log('Payment successful:', response);
+            }).catch(error => {
+                console.error('Payment failed:', error);
+            });
+        }
+    </script>
+</body>
+</html>
