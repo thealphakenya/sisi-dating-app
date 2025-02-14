@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Matches</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <script type="module" src="firebase/firebase-auth.js"></script>
+    <script type="module" src="firebase/firebase-database.js"></script>
+</head>
+<body>
+    <h1>Your Matches</h1>
+    <div id="matches-container">
+        <!-- Matches will be loaded here -->
+    </div>
+
+    <script>
+        import { auth } from './firebase/firebase-auth.js';
+        import { getDatabase, ref, get } from './firebase/firebase-database.js';
+
+        async function loadMatches() {
+            const userId = auth.currentUser?.uid;
+            if (!userId) {
+                window.location.href = 'authentication.html';
+                return;
+            }
+
+            const db = getDatabase();
+            const matchesRef = ref(db, 'matches/' + userId);
+            const snapshot = await get(matchesRef);
+            
+            if (snapshot.exists()) {
+                const matches = snapshot.val();
+                const container = document.getElementById('matches-container');
+                for (const matchId in matches) {
+                    const match = matches[matchId];
+                    const matchElement = document.createElement('div');
+                    matchElement.className = 'match';
+                    matchElement.textContent = match.name;
+                    container.appendChild(matchElement);
+                }
+            }
+        }
+
+        loadMatches();
+    </script>
+</body>
+</html>
